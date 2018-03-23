@@ -1,55 +1,25 @@
 #!/usr/bin/env php
 <?php
-$image_block_size = 1;
-$css_block_size = 1;
+require_once('vendor/autoload.php');
+
+$image_block_size = 10;
 $image_filename = $argv[1];
-$pixel_art_filename = "dist/$image_filename.html";
-$box_shadows = [];
-$first_pixel_background = '';
+$canvas = new \Entities\CssCanvas($image_filename, 10);
+$writer = new \Helpers\ArtWriterHelper($canvas);
 
-$image = imagecreatefromjpeg($image_filename);
+$image = new \Entities\Image($image_filename);
 
-list($width, $height) = [imagesx($image), $height = imagesy($image)];
+list($width, $height) = [$image->get_width(), $image->get_height()];
 
 for($x = 0; $x < $width / $image_block_size; $x ++)
 {
 	for($y = 0; $y < $height / $image_block_size; $y ++)
 	{
-		$rgb = imagecolorat($image, $x * $image_block_size, $y * $image_block_size);
-		$r = ($rgb >> 16) & 0xFF;
-		$g = ($rgb >> 8) & 0xFF;
-		$b = $rgb & 0xFF;
-		
-		if($x == 0 && $y == 0)
-		{
-			$first_pixel_background = "rgb($r, $g, $b)";
-		}
-		
-		$box_shadows[] = ($css_block_size * $x) . 'px ' . ($css_block_size * $y) . "px 0 rgb($r, $g, $b)";
+		$rgb = $image->get_rgb_at($x * $image_block_size, $y * $image_block_size);
+		$pixel = new \Entities\Pixel($rgb, $x, $y);
+
+		$canvas->add_box_shadow($pixel);
 	}
 }
 
-$head = <<<HTML_HEAD
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-.art {background-color: $first_pixel_background; display: block; height: {$css_block_size}px; width: {$css_block_size}px; box-shadow: 
-HTML_HEAD;
-
-$body = <<<HTML_BODY
-;}
-</style>
-</head>
-<body>
-<div class="art"></div>
-</body>
-</html>
-HTML_BODY;
-
-$fh = fopen($pixel_art_filename, "w");
-fwrite($fh, $head);
-fwrite($fh, implode(', ', $box_shadows));
-fwrite($fh, $body);
-fclose($fh);
-
+$writer->write_html_file();

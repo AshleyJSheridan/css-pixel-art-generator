@@ -1,2 +1,4 @@
 dist/*.html
 test_images/*.jpg
+
+/vendor/

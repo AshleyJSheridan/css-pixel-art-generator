@@ -1,0 +1,19 @@
+{
+	"name": "AshleyJSheridan/css-pixel-art",
+	"description": "Command line PHP script to generate an image using CSS box-shadow with only a single div",
+	"type": "project",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Ashley Sheridan",
+			"email": "ashley.sheridan@livedrive.com"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Entities\\": "src/Entities",
+			"Helpers\\": "src/Helpers"
+		}
+	}
+}
