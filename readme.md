@@ -28,7 +28,7 @@ You can change the size of the CSS pixel blocks by changing the `$css_block_size
 
 ## Examples
 
-![Original Mona Lisa Image at 345x515px](/AshleyJSheridan/css-pixel-art-generator/master/docs/original.jpg)
+![Original Mona Lisa Image at 345x515px](https://raw.githubusercontent.com/AshleyJSheridan/css-pixel-art-generator/master/docs/original.jpg)
 
 ## Caveats
 
