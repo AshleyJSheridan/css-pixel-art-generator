@@ -13,7 +13,8 @@
 	"autoload": {
 		"psr-4": {
 			"Entities\\": "src/Entities",
-			"Helpers\\": "src/Helpers"
+			"Helpers\\": "src/Helpers",
+			"CssPixelArt\\": "src/CssPixelArt"
 		}
 	}
 }
